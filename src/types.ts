@@ -19,6 +19,12 @@ export type WithSkipLinksProps = {
 }
 
 export type SkipLinkActions = {
-  register: Function
-  clear: Function
+  register: RegisterAction
+  clear: ClearAction
 }
+
+export type RefFunction = (ref: HTMLElement) => void
+
+export type RegisterAction = (skipLink: SkipLink) => RefFunction | undefined
+
+export type ClearAction = () => void
