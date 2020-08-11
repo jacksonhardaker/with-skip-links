@@ -3,3 +3,4 @@
 rollup.config.js
 tsconfig.json
 *.tgz
+.rpt2_cache
