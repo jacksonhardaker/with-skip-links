@@ -1,22 +1,17 @@
-enum DOMRelativePositions {
-  Void = 1,
-  After = 2,
-  Before = 4,
-  Inside = 8,
-  Contains = 16,
-  Same = 32,
+const orAndCombined = (a: number, b: number) => [a, b, a | b]
+
+const isAfter = (position: number): Boolean => {
+  return orAndCombined(
+    Node.DOCUMENT_POSITION_PRECEDING,
+    Node.DOCUMENT_POSITION_CONTAINS)
+    .includes(position)
 }
 
-export const isAfter = (position: number): Boolean => [
-  DOMRelativePositions.After,
-  DOMRelativePositions.Inside,
-  DOMRelativePositions.After | DOMRelativePositions.Inside,
-].includes(position)
-
-export const isBefore = (position: number): Boolean => [
-  DOMRelativePositions.Before,
-  DOMRelativePositions.Contains,
-  DOMRelativePositions.Before | DOMRelativePositions.Contains,
-].includes(position)
+const isBefore = (position: number): Boolean => {
+  return orAndCombined(
+    Node.DOCUMENT_POSITION_FOLLOWING,
+    Node.DOCUMENT_POSITION_CONTAINED_BY)
+    .includes(position)
+}
 
 export const evalPosition = (position: number): number => isAfter(position) ? 1 : isBefore(position) ? -1 : 0
