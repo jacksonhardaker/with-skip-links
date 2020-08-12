@@ -1,23 +1,9 @@
 import * as React from 'react'
 import { SkipLink, SkipLinksReducerAction, WithSkipLinksProps, SkipLinkActions, SkipLinksState, RefFunction, RegisterAction, ClearAction } from './types'
-import { evalPosition } from './utils/compare-dom-position'
+import { sortLinks } from './utils/sort'
 
 const SkipLinksDispatchContext = React.createContext<Function | undefined>(undefined)
 const SkipLinksStateContext = React.createContext<SkipLinksState | undefined>(undefined)
-
-const sortLinks = (links: SkipLinksState): SkipLinksState => {
-  const clone = [...links].sort((a, b) => {
-    // ref undefined during SSR
-    if (a?.ref && b?.ref) {
-      return evalPosition(
-        a?.ref?.compareDocumentPosition(b?.ref)
-      )
-    }
-
-    return 0
-  })
-  return clone
-}
 
 function reducer(state: SkipLink[], { type, payload }: SkipLinksReducerAction): SkipLinksState {
   switch (type) {
