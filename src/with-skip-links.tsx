@@ -1,16 +1,22 @@
 import * as React from 'react'
 import { SkipLink, SkipLinksReducerAction, WithSkipLinksProps, SkipLinkActions, SkipLinksState, RefFunction, RegisterAction, ClearAction } from './types'
+import { evalPosition } from './utils/compare-dom-position'
 
 const SkipLinksDispatchContext = React.createContext<Function | undefined>(undefined)
 const SkipLinksStateContext = React.createContext<SkipLinksState | undefined>(undefined)
 
-const sortLinks = (links: SkipLinksState): SkipLinksState =>{
-  const clone = [...links].sort((a, b) =>
-    a.position < b.position ? -1 : a.position > b.position ? 1 : 0
-  )
+const sortLinks = (links: SkipLinksState): SkipLinksState => {
+  const clone = [...links].sort((a, b) => {
+    if (a?.ref && b?.ref) {
+      return evalPosition(
+        a?.ref?.compareDocumentPosition(b?.ref)
+      )
+    }
+
+    return 0
+  })
   return clone
 }
-
 
 function reducer(state: SkipLink[], { type, payload }: SkipLinksReducerAction): SkipLinksState {
   switch (type) {
@@ -20,18 +26,18 @@ function reducer(state: SkipLink[], { type, payload }: SkipLinksReducerAction): 
       )
       return exists
         ? sortLinks(
-            state.map((skipLink) =>
+          state.map((skipLink) =>
             skipLink.to === payload.to
-                ? Object.assign(skipLink, payload)
-                : skipLink
-            )
+              ? Object.assign(skipLink, payload)
+              : skipLink
           )
+        )
         : sortLinks([
-            ...state,
-            {
-              ...payload, // Order by position in the document
-            },
-          ])
+          ...state,
+          {
+            ...payload, // Order by position in the document
+          },
+        ])
     case 'CLEAR':
       return []
     default:
@@ -66,7 +72,7 @@ export function useSkipLinkActions(): SkipLinkActions {
           type: 'REGISTER',
           payload: {
             ...skipLink,
-            position: ref.getBoundingClientRect().top,
+            ref,
           },
         })
         ref.id = skipLink.to

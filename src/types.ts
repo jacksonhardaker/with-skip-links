@@ -3,7 +3,7 @@ import React from 'react'
 export type SkipLink = {
   label: string
   to: string
-  position: number
+  ref: HTMLElement | undefined
 }
 
 export type SkipLinksReducerAction = {
