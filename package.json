@@ -1,6 +1,6 @@
 {
   "name": "with-skip-links",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Context for providing site Skip Links for keyboard users",
   "main": "build/index.js",
   "module": "build/index.es.js",
