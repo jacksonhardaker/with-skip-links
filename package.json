@@ -6,8 +6,8 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "scripts": {
-    "build": "typedoc --out public src",
-    "bundle": "rollup -c",
+    "vercel-build": "typedoc --out public src",
+    "build": "rollup -c",
     "test": "jest --coverage"
   },
   "repository": {

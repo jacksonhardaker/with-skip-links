@@ -7,3 +7,4 @@ tsconfig.json
 coverage
 docs
 public
+.vercel

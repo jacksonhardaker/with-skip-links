@@ -13,3 +13,4 @@ docs
 public
 build
 *.tgz
+.vercel
