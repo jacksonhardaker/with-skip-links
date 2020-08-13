@@ -5,3 +5,5 @@ tsconfig.json
 *.tgz
 .rpt2_cache
 coverage
+docs
+public

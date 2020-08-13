@@ -74,4 +74,6 @@ export function useSkipLinkActions(): SkipLinkActions {
   return { register, clear }
 }
 
-export const useSkipLinksContent = (): SkipLinksState | undefined => React.useContext(SkipLinksStateContext)
+export function useSkipLinksContent(): SkipLinksState | undefined {
+  return React.useContext(SkipLinksStateContext)
+}

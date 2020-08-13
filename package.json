@@ -6,7 +6,8 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "typedoc --out public src",
+    "bundle": "rollup -c",
     "test": "jest --coverage"
   },
   "repository": {
@@ -41,6 +42,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.3",
     "rollup-plugin-typescript2": "^0.27.2",
     "ts-jest": "^26.1.4",
+    "typedoc": "^0.18.0",
     "typescript": "^3.9.7"
   },
   "peerDependencies": {}

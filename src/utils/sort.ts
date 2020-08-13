@@ -1,7 +1,7 @@
 import { SkipLinksState } from "../types"
 import { evalPosition } from "./compare-dom-position"
 
-export const sortLinks = (links: SkipLinksState): SkipLinksState => {
+export function sortLinks(links: SkipLinksState): SkipLinksState {
   const clone = [...links].sort((a, b) => {
     // ref undefined during SSR
     if (a?.ref && b?.ref) {
