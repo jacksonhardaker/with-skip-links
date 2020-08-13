@@ -8,3 +8,5 @@ coverage
 docs
 public
 .vercel
+jest.config.js
+.github
