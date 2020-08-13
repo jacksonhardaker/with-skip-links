@@ -14,7 +14,7 @@ export type SkipLinksReducerAction = {
 export type SkipLinksState = SkipLink[]
 
 export type WithSkipLinksProps = {
-  children: React.ReactNode | React.ReactNodeArray
+  children: React.ReactNode
   defaultSkipLinks: SkipLinksState
 }
 
