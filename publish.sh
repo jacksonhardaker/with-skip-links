@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 npm run build
-npm version patch
+VERSION=$(npm version patch)
 PKG=$(npm pack)
 npm publish "${PKG}"
+git push origin "${VERSION}"
