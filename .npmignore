@@ -10,3 +10,4 @@ public
 .vercel
 jest.config.js
 .github
+*.sh
