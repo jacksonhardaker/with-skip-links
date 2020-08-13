@@ -59,7 +59,7 @@ describe('element sort function', () => {
 
     if (oneRef && twoRef && threeRef && fourRef && fourRef) {
       const [one, two, three, four, five] = [oneRef, twoRef, threeRef, fourRef, fiveRef].map(ref => 
-        ({ ref, to: ref.href, label: ref.id }))
+        ({ ref, to: '/anywhere', label: ref.id }))
       const unsorted = [two, one, four, five, three]
   
       expect(unsorted[0]).not.toEqual(one)
