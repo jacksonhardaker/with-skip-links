@@ -1,9 +1,7 @@
 import * as React from 'react'
-import { SkipLink, SkipLinksReducerAction, WithSkipLinksProps, SkipLinkActions, SkipLinksState, RefFunction, RegisterAction, ClearAction } from './types'
+import { SkipLink, SkipLinksReducerAction, WithSkipLinksProps, SkipLinksState } from './types'
 import { sortLinks } from './utils/sort'
-
-const SkipLinksDispatchContext = React.createContext<Function | undefined>(undefined)
-const SkipLinksStateContext = React.createContext<SkipLinksState | undefined>(undefined)
+import { SkipLinksStateContext, SkipLinksDispatchContext } from './context'
 
 function reducer(state: SkipLink[], { type, payload }: SkipLinksReducerAction): SkipLinksState {
   switch (type) {
@@ -42,38 +40,4 @@ export function WithSkipLinks({ children, defaultSkipLinks }: WithSkipLinksProps
       </SkipLinksDispatchContext.Provider>
     </SkipLinksStateContext.Provider>
   )
-}
-
-export function useSkipLinkActions(): SkipLinkActions {
-  const dispatch = React.useContext(SkipLinksDispatchContext)
-
-  if (!dispatch) {
-    throw new Error('Must be a child of "WithSkipLinks" to use "useSkipLinkActions".')
-  }
-
-  const register: RegisterAction = (skipLink): RefFunction | undefined => {
-    return (ref) => {
-      if (ref) {
-        // Assign ID once ref becomes available
-        dispatch({
-          type: 'REGISTER',
-          payload: {
-            ...skipLink,
-            ref,
-          },
-        })
-        ref.id = skipLink.to
-      }
-    }
-  }
-
-  const clear: ClearAction = () => {
-    dispatch({ type: 'CLEAR' })
-  }
-
-  return { register, clear }
-}
-
-export function useSkipLinksContent(): SkipLinksState | undefined {
-  return React.useContext(SkipLinksStateContext)
 }

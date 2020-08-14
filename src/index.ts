@@ -1,2 +1,5 @@
-import { WithSkipLinks, useSkipLinksContent, useSkipLinkActions } from './with-skip-links'
+import { WithSkipLinks } from './WithSkipLinks'
+import { useSkipLinkActions } from './useSkipLinkActions'
+import { useSkipLinksContent } from './useSkipLinksContent'
+
 export { WithSkipLinks, useSkipLinksContent, useSkipLinkActions }
