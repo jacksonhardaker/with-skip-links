@@ -3,7 +3,7 @@ import React from 'react'
 export type SkipLink = {
   label: string
   to: string
-  ref: HTMLElement | undefined
+  ref?: HTMLElement
 }
 
 export type SkipLinksReducerAction = {
@@ -15,7 +15,7 @@ export type SkipLinksState = SkipLink[]
 
 export type WithSkipLinksProps = {
   children: React.ReactNode
-  defaultSkipLinks: SkipLinksState
+  defaultSkipLinks?: SkipLinksState
 }
 
 export type SkipLinkActions = {

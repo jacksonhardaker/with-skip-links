@@ -30,7 +30,7 @@ function reducer(state: SkipLink[], { type, payload }: SkipLinksReducerAction): 
   }
 }
 
-export function WithSkipLinks({ children, defaultSkipLinks }: WithSkipLinksProps): React.ReactNode {
+export function WithSkipLinks({ children, defaultSkipLinks }: WithSkipLinksProps) {
   const [state, dispatch] = React.useReducer(reducer, defaultSkipLinks || [])
 
   return (
