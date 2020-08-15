@@ -6,9 +6,10 @@
   "module": "build/index.es.js",
   "jsnext:main": "build/index.es.js",
   "scripts": {
-    "vercel-build": "typedoc --out public src",
+    "vercel-build": "npm run docs",
     "build": "rollup -c",
     "test": "jest --coverage",
+    "docs": "typedoc --out public src --exclude '**/__tests__/*' --stripInternal",
     "publish": "./publish.sh"
   },
   "repository": {
@@ -34,6 +35,7 @@
     "@testing-library/react": "^10.4.8",
     "@types/jest": "^26.0.9",
     "@types/react": "^16.9.45",
+    "@types/react-dom": "^16.9.8",
     "jest": "^26.2.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -1,20 +1,27 @@
 import * as React from 'react'
-import { SkipLinkActions, RegisterAction, RefFunction, ClearAction } from './types'
+import { RegisterAction, RefFunction, ClearAction, ActionType } from './types'
 import { SkipLinksDispatchContext } from './context'
 
-export function useSkipLinkActions(): SkipLinkActions {
+/**
+ * Can only be used from a child component of [[WithSkipLinks]].
+ * 
+ * ```javascript
+ * const { register, clear } = useSkipLinkActions();
+ * ```
+ */
+export function useSkipLinkActions() {
   const dispatch = React.useContext(SkipLinksDispatchContext)
 
   if (!dispatch) {
     throw new Error('Must be a child of "WithSkipLinks" to use "useSkipLinkActions".')
   }
 
-  const register: RegisterAction = (skipLink): RefFunction | undefined => {
+  const register: RegisterAction = (skipLink): RefFunction => {
     return (ref) => {
       if (ref) {
         // Assign ID once ref becomes available
         dispatch({
-          type: 'REGISTER',
+          type: ActionType.register,
           payload: {
             ...skipLink,
             ref,
@@ -26,7 +33,7 @@ export function useSkipLinkActions(): SkipLinkActions {
   }
 
   const clear: ClearAction = () => {
-    dispatch({ type: 'CLEAR' })
+    dispatch({ type: ActionType.clear })
   }
 
   return { register, clear }
