@@ -78,4 +78,12 @@ describe('element sort function', () => {
     }
 
   })
+
+  test.skip('should not perform sort when items have no ref', () => {
+    
+  })
+
+  test.skip('should not perform sort when ref does not have compareDocumentPosition as an available function', () => {
+
+  })
 })
