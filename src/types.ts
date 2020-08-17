@@ -27,8 +27,8 @@ export type SkipLinksState = SkipLink[]
  * ```
  */
 export type Action = {
-  type: ActionType
-  payload: SkipLink
+  type: ActionType | string
+  payload?: SkipLink
 }
 
 /**

@@ -3,9 +3,13 @@ import { SkipLink, Action, WithSkipLinksProps, SkipLinksState, ActionType } from
 import { sortLinks } from './utils/sort'
 import { SkipLinksStateContext, SkipLinksDispatchContext } from './context'
 
-function reducer(state: SkipLink[], { type, payload }: Action): SkipLinksState {
+export function reducer(state: SkipLink[], { type, payload }: Action): SkipLinksState {
   switch (type) {
     case ActionType.register:
+      if (!payload) {
+        return state
+      }
+
       const exists = state.find(
         (skipLink) => skipLink.to === payload.to
       )
