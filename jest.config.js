@@ -4,5 +4,10 @@ module.exports = {
   testPathIgnorePatterns: [
     '/node_modules/',
     '/build/'
-  ]
+  ],
+  coverageReporters: [
+    'json-summary', 
+    'text',
+    'lcov'
+  ],
 };

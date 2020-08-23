@@ -9,6 +9,7 @@
     "vercel-build": "npm run docs",
     "build": "rollup -c",
     "test": "jest --coverage",
+    "test:badges": "npm run test && npx jest-coverage-badges output ./docs/badges",
     "docs": "typedoc --out public src --exclude '**/__tests__/*' --stripInternal",
     "publish": "./publish.sh"
   },
@@ -48,5 +49,8 @@
     "typedoc": "^0.18.0",
     "typescript": "^3.9.7"
   },
-  "peerDependencies": {}
+  "peerDependencies": {},
+  "dependencies": {
+    "jest-coverage-badges": "^1.1.2"
+  }
 }
