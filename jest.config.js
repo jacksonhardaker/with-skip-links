@@ -1,5 +1,5 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: 'ts-jest/presets/js-with-ts',
   testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
     '/node_modules/',

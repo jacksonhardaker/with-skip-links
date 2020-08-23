@@ -7,7 +7,7 @@ const mockCurrentState = [
   { label: 'Navigate Anywhere', to: 'anywhere' },
 ]
 
-const callReducer = (action: Action) => reducer(mockCurrentState, action)
+const callReducer = (action) => reducer(mockCurrentState, action)
 
 describe('WithSkipLinks reducer', () => {
 

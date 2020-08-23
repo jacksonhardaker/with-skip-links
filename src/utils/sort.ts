@@ -6,7 +6,7 @@ export function sortLinks(links: SkipLinksState): SkipLinksState {
     // ref undefined during SSR
     if (a?.ref && b?.ref) {
       return evalPosition(
-        a.ref?.compareDocumentPosition(b.ref)
+        a.ref?.compareDocumentPosition?.(b.ref) || 0
       )
     }
 

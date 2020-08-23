@@ -1,10 +1,10 @@
 import React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { useSkipLinkActions } from '../useSkipLinkActions'
-import { RegisterAction, ClearAction, ActionType, SkipLink } from '../types'
 import { WithSkipLinks } from '../WithSkipLinks'
+import { ActionType } from '../types'
 
-let actions: { register: RegisterAction, clear: ClearAction } | null
+let actions
 const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(jest.fn())
 
 beforeEach(() => {
@@ -16,11 +16,7 @@ afterEach(() => {
   consoleErrorSpy.mockReset()
 })
 
-type Props = {
-  children?: React.ReactNode
-}
-
-const TestWrapper = (props: Props) => {
+const TestWrapper = (props) => {
   actions = useSkipLinkActions()
   return <>{props.children || null}</>
 }
@@ -55,7 +51,7 @@ describe('useSkipLinksContent hook', () => {
   test('should return a function when the returned register function is called', () => {
     render(<WithSkipLinks><TestWrapper /></WithSkipLinks>)
 
-    const mockSkipLink: SkipLink = {
+    const mockSkipLink = {
       label: 'Navigate anywhere',
       to: '#anywhere',
     }
@@ -70,7 +66,7 @@ describe('useSkipLinksContent hook', () => {
     jest.spyOn(React, 'useContext').mockReturnValue(mockDispatch)
     render(<WithSkipLinks><TestWrapper /></WithSkipLinks>)
 
-    const mockSkipLink: SkipLink = {
+    const mockSkipLink = {
       label: 'Navigate anywhere',
       to: 'anywhere',
     }
@@ -94,7 +90,7 @@ describe('useSkipLinksContent hook', () => {
     jest.spyOn(React, 'useContext').mockReturnValue(mockDispatch)
     render(<WithSkipLinks><TestWrapper /></WithSkipLinks>)
 
-    const mockSkipLink: SkipLink = {
+    const mockSkipLink = {
       label: 'Navigate anywhere',
       to: 'anywhere',
     }

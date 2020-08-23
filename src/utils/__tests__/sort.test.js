@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom/extend-expect'
 import { sortLinks } from '../sort'
+import * as util from '../compare-dom-position'
 
 describe('element sort function', () => {
   test('should sort an unsorted list of sibling HTML elements', () => {
@@ -45,11 +46,11 @@ describe('element sort function', () => {
         <a href="/five" id="five">Five</a>
       </a>
     `
-    const oneRef = DOM.querySelector('a#one') as HTMLElement
-    const twoRef = DOM.querySelector('a#two') as HTMLElement
-    const threeRef = DOM.querySelector('a#three') as HTMLElement
-    const fourRef = DOM.querySelector('a#four') as HTMLElement
-    const fiveRef = DOM.querySelector('a#five') as HTMLElement
+    const oneRef = DOM.querySelector('a#one')
+    const twoRef = DOM.querySelector('a#two')
+    const threeRef = DOM.querySelector('a#three')
+    const fourRef = DOM.querySelector('a#four')
+    const fiveRef = DOM.querySelector('a#five')
 
     expect(oneRef).not.toBeNull()
     expect(twoRef).not.toBeNull()
@@ -79,11 +80,41 @@ describe('element sort function', () => {
 
   })
 
-  test.skip('should not perform sort when items have no ref', () => {
-    
+  test('should not perform sort when items have no ref', () => {
+    const spy = jest.spyOn(util, 'evalPosition')
+    const skipLinksWithoutRef = [
+      { label: 'one', to: 'one' },
+      { label: 'two', to: 'two' },
+      { label: 'three', to: 'three' },
+      { label: 'four', to: 'four' },
+    ]
+
+    const result = sortLinks(skipLinksWithoutRef)
+
+    expect(result).toStrictEqual(skipLinksWithoutRef)
+    expect(util.evalPosition).not.toHaveBeenCalled()
+    spy.mockClear()
   })
 
-  test.skip('should not perform sort when ref does not have compareDocumentPosition as an available function', () => {
+  test('should not perform sort when ref does not have compareDocumentPosition as an available function', () => {
+    const spy = jest.spyOn(util, 'evalPosition')
 
+    const incompleteHTMLElement = {
+      ...document.createElement('div'),
+      compareDocumentPosition: undefined,
+    }
+
+    const skipLinksWithNonHtmlRef = [
+      { label: 'one', to: 'one', ref: incompleteHTMLElement },
+      { label: 'two', to: 'two', ref: incompleteHTMLElement },
+      { label: 'three', to: 'three', ref: incompleteHTMLElement },
+      { label: 'four', to: 'four', ref: incompleteHTMLElement },
+    ]
+
+    const result = sortLinks(skipLinksWithNonHtmlRef)
+
+    expect(result).toStrictEqual(skipLinksWithNonHtmlRef)
+    expect(util.evalPosition).toHaveBeenCalledWith(0)
+    spy.mockClear()
   })
 })

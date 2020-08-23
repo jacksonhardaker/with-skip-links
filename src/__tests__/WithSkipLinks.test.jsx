@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import { render, cleanup, act } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 import { WithSkipLinks } from '../WithSkipLinks'
@@ -6,8 +6,8 @@ import { WithSkipLinksProps, SkipLinksState, RegisterAction, ClearAction } from 
 import { useSkipLinksContent } from '../useSkipLinksContent'
 import { useSkipLinkActions } from '../useSkipLinkActions'
 
-let state: SkipLinksState | null = null
-let actions: { register: RegisterAction, clear: ClearAction } | null
+let state
+let actions
 const mockDefaultState = [
   { label: 'Navigate Here', to: 'here' },
   { label: 'Navigate There', to: 'there' },
@@ -21,21 +21,17 @@ beforeEach(() => {
 
 afterEach(cleanup)
 
-type Props = {
-  children?: React.ReactNode
-}
-
-const TestState = (props: Props) => {
+const TestState = (props) => {
   state = useSkipLinksContent()
   return <>{props.children || null}</>
 }
 
-const TestActions = (props: Props) => {
+const TestActions = (props) => {
   actions = useSkipLinkActions()
   return <>{props.children || null}</>
 }
 
-const Test = ({ children, defaultSkipLinks }: WithSkipLinksProps) => <WithSkipLinks {...{ defaultSkipLinks }}>{children}</WithSkipLinks>
+const Test = ({ children, defaultSkipLinks }) => <WithSkipLinks {...{ defaultSkipLinks }}>{children}</WithSkipLinks>
 
 describe('WithSkipLinks', () => {
 

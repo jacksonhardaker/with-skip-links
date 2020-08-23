@@ -1,10 +1,10 @@
-import * as React from 'react'
+import React from 'react'
 import { render, cleanup } from '@testing-library/react'
 import { useSkipLinksContent } from '../useSkipLinksContent'
 import { SkipLinksState, SkipLink } from '../types'
 import { WithSkipLinks } from '../WithSkipLinks'
 
-let state: SkipLinksState | null = null
+let state
 const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(jest.fn())
 
 beforeEach(() => {
@@ -16,11 +16,7 @@ afterEach(() => {
   consoleErrorSpy.mockReset()
 })
 
-type Props = {
-  children?: React.ReactNode
-}
-
-const TestWrapper = (props: Props) => {
+const TestWrapper = (props) => {
   state = useSkipLinksContent()
   return <>{props.children || null}</>
 }
@@ -39,7 +35,7 @@ describe('useSkipLinksContent hook', () => {
   })
 
   test('should return default state when wrapped with WithSkipLinks', () => {
-    const expectedState: SkipLink[] = [
+    const expectedState = [
       { label: 'here', to: '#there' },
       { label: 'and', to: '#everywhere' },
     ]

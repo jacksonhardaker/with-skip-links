@@ -13,7 +13,7 @@ export enum ActionType {
 export type SkipLink = {
   label: string
   to: string
-  ref?: HTMLElement
+  ref?: Node
 }
 
 export type SkipLinksState = SkipLink[]
